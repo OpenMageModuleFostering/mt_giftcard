@@ -2,7 +2,7 @@
 <config>
     <modules>
         <MT_Giftcard>
-            <version>1.0.4</version>
+            <version>1.0.14</version>
         </MT_Giftcard>
     </modules>
     <global>
@@ -325,6 +325,14 @@
     </admin>
 
     <default>
+        <payment>
+            <giftcard>
+                <active>1</active>
+                <model>giftcard/payment_giftcard</model>
+                <title>Use Gift Card to check out</title>
+                <sort_order>900</sort_order>
+            </giftcard>
+        </payment>
         <giftcard>
             <general>
                 <is_active>0</is_active>
