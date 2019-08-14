@@ -106,6 +106,11 @@ var GiftCardCheckout = {
         jQuery('input[name="apply_gift_card[]"]').removeAttr('disabled');
         jQuery('#p_method_giftcard').removeAttr('disabled');
         jQuery('#gift_card_code').removeAttr('disabled');
+    },
+
+    hidePaymentMethod: function()
+    {
+        jQuery('#p_method_giftcard').parent().remove();
     }
 };
 
