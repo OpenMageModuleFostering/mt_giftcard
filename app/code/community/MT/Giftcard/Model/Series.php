@@ -60,8 +60,9 @@ class MT_Giftcard_Model_Series extends Mage_Core_Model_Abstract
             return null;
 
         $collection = $this->getCollection();
+        $table = Mage::getSingleton('core/resource')->getTableName('giftcard/series_product');
         $collection->getSelect()
-            ->join(array('t1' => 'mt_giftcardseries_product'), 'main_table.entity_id=t1.giftcard_series_id', array(
+            ->join(array('t1' => $table), 'main_table.entity_id=t1.giftcard_series_id', array(
                 'position' => 't1.position',
             ))
             ->where('t1.product_id =?', $productId);
@@ -118,6 +119,11 @@ class MT_Giftcard_Model_Series extends Mage_Core_Model_Abstract
         );
     }
 
+    public function getFormatedOldPrice()
+    {
+        return Mage::helper('core')->currency($this->getOldPrice(), true, false);
+    }
+
     public function getFormatedPrice()
     {
         return Mage::helper('core')->currency($this->getPrice(), true, false);
@@ -135,8 +141,7 @@ class MT_Giftcard_Model_Series extends Mage_Core_Model_Abstract
 
         $giftCardCollection = Mage::getModel('giftcard/giftcard')->getCollection()
             ->addFieldToFilter('series_id', array('in' => $in))
-            ->addFieldToFilter('status', MT_Giftcard_Model_Giftcard::STATUS_ACTIVE)
-            ->addFieldToSelect('series_id');
+            ->addFieldToFilter('status', MT_Giftcard_Model_Giftcard::STATUS_ACTIVE);
         $giftCardCollection->getSelect()->group('series_id');
 
         $availableSeries = array();

@@ -8,6 +8,11 @@ class MT_Giftcard_Block_Checkout_Payment_Giftcard_Form
         $this->setTemplate('mt/giftcard/checkout/payment/giftcard/form.phtml');
     }
 
+    public function getControllerUrl()
+    {
+        return Mage::getUrl('giftcard/checkout_cart');
+    }
+
     public function isActive()
     {
         if (!Mage::helper('giftcard')->isActive() || !Mage::getStoreConfig('giftcard/cart/form_in_checkout'))
@@ -19,7 +24,7 @@ class MT_Giftcard_Block_Checkout_Payment_Giftcard_Form
             return false;
 
         foreach ($items as $item) {
-            if ($item->getProduct()->getTypeId() == MT_Giftcard_Model_Catalog_Product_Type::TYPE_GIFTCARD_PRODUCT)
+            if ($item->getProductType() == MT_Giftcard_Model_Catalog_Product_Type::TYPE_GIFTCARD_PRODUCT)
                 return false;
         }
 

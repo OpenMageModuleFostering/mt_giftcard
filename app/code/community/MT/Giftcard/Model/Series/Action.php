@@ -35,8 +35,9 @@ class MT_Giftcard_Model_Series_Action
         if (count($giftCardsSeries) > 0) {
             $resource = Mage::getSingleton('core/resource');
             $db = $resource->getConnection('core');
+            $table = $resource->getTableName('giftcard/series_product');
             foreach ($giftCardsSeries as $seriesId => $params) {
-                $db->insert('mt_giftcardseries_product', array(
+                $db->insert($table, array(
                     'product_id' => $productId,
                     'giftcard_series_id' => $seriesId,
                     'position' => $params['position'],
@@ -53,7 +54,8 @@ class MT_Giftcard_Model_Series_Action
             return false;
         $resource = Mage::getSingleton('core/resource');
         $db = $resource->getConnection('core');
-        $db->delete('mt_giftcardseries_product', array('product_id='.$productId));
+        $table = $resource->getTableName('giftcard/series_product');
+        $db->delete($table, array('product_id='.$productId));
         return true;
     }
 

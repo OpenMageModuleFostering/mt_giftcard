@@ -88,8 +88,11 @@ class MT_Giftcard_Model_Observer
             return;
 
         $order = $observer->getEvent()->getOrder();
-        $quote = $order->getQuote();
+        $quote = Mage::getSingleton('checkout/cart')->getQuote();
         $address = $quote->getShippingAddress();
+        if (!$address) {
+            return;
+        }
 
         $discountedFromGiftCard = $address->getMtGiftCardTotal()*-1;
         $giftCardData = $order->getMtGiftCard();
@@ -149,6 +152,7 @@ class MT_Giftcard_Model_Observer
         $order->setMtGiftCardDescription(rtrim($discountLabel, ', '));
         $order->setMtGiftCard(serialize($giftCardData));
         $order->setForcedCanCreditmemo(0);
+        $order->save();
     }
 
     public function refundGiftCardBalance($observer)
