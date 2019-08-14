@@ -6,9 +6,8 @@ class MT_Giftcard_Block_Adminhtml_Sales_Items_Column_Name_Giftcard
     public function getOrderOptions()
     {
         $result = parent::getOrderOptions();
-        $product = $this->getItem()->getProduct();
 
-        if ($product->getTypeId() == MT_Giftcard_Model_Catalog_Product_Type::TYPE_GIFTCARD_PRODUCT) {
+        if ($this->getItem()->getProductType() == MT_Giftcard_Model_Catalog_Product_Type::TYPE_GIFTCARD_PRODUCT) {
             $giftCardValue = '';
             $giftCardCollection = Mage::getModel('giftcard/giftcard')->getCollection()
                 ->addFieldToFilter('order_item_id', $this->getItem()->getId());
@@ -22,16 +21,6 @@ class MT_Giftcard_Block_Adminhtml_Sales_Items_Column_Name_Giftcard
                     array(
                         'label' => Mage::helper('giftcard')->__('Gift Card'),
                         'value' => $giftCardValue
-                    ),
-                    array(
-                        'label' => Mage::helper('giftcard')->__('Gift Card Type'),
-                        'value' => Mage::helper('giftcard')->__(Mage::getResourceModel('catalog/product')->getAttributeRawValue($this->getItem()->getProductId(), 'gift_card_type', Mage::app()->getStore()->getId()))
-                    ),
-                    array(
-                        'label' => Mage::helper('giftcard')->__('Physical Gift Card'),
-                        'value' => (isset($productOptions['info_buyRequest']['giftcard_attribute']['giftcard_is_real'])
-                            && $productOptions['info_buyRequest']['giftcard_attribute']['giftcard_is_real'] = 1
-                            )?Mage::helper('giftcard')->__('Yes'):Mage::helper('giftcard')->__('No')
                     ),
                 );
 
