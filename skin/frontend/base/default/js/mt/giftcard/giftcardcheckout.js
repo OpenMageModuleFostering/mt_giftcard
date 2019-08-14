@@ -6,12 +6,15 @@ var GiftCardCheckout = {
     {
         GiftCardCheckout.config = config;
         GiftCardCheckout.updateEvents();
-        payment.addAfterInitFunction('giftcard', function(){
-            GiftCardCheckout.initEvents();
-            GiftCardCheckout.updateEvents();
-            GiftCardCheckout.endLoading();
-        });
     },
+
+    initPayment: function()
+    {
+        GiftCardCheckout.initEvents();
+        GiftCardCheckout.updateEvents();
+        GiftCardCheckout.endLoading();
+    },
+
 
     initEvents: function()
     {
