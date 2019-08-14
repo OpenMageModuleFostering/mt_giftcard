@@ -2,7 +2,7 @@
 <config>
     <modules>
         <MT_Giftcard>
-            <version>1.0.14</version>
+            <version>1.0.4</version>
         </MT_Giftcard>
     </modules>
     <global>
@@ -62,7 +62,7 @@
 
             <core>
                 <rewrite>
-                    <email_template>MT_Giftcard_Model_Core_Email_Template</email_template>
+                    <email_template_mailer>MT_Giftcard_Model_Email_Template_Mailer</email_template_mailer>
                 </rewrite>
             </core>
 
@@ -77,16 +77,6 @@
                     <use>core_setup</use>
                 </connection>
             </giftcard_setup>
-            <giftcard_write>
-                <connection>
-                    <use>core_write</use>
-                </connection>
-            </giftcard_write>
-            <giftcard_read>
-                <connection>
-                    <use>core_read</use>
-                </connection>
-            </giftcard_read>
         </resources>
         <catalog>
             <product>

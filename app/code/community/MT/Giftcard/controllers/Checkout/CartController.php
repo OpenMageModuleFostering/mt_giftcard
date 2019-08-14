@@ -100,9 +100,9 @@ class MT_Giftcard_Checkout_CartController
 
                 if ($codeLength) {
                     if ($isCodeLengthValid && $helper->isGiftCardCodeAddedToQuote($this->_getQuote()->getMtGiftCard(), $giftCardCode)) {
-                        $success = $this->__('Gift card "%s" was applied.', $giftCardCode);
+                        $success = $this->__('Gift card "%s" was added.', Mage::helper('core')->escapeHtml($giftCardCode));
                     } else {
-                        $error = $this->__('Gift card "%s" is not valid.', $giftCardCode);
+                        $error = $this->__('Gift card "%s" is not valid.', Mage::helper('core')->escapeHtml($giftCardCode));
                     }
                 } else {
                     $error = $this->__('Gift card was canceled.');
@@ -131,6 +131,12 @@ class MT_Giftcard_Checkout_CartController
         $error = false;
         $response = '';
 
+/*if ($this->getRequest()->getParam('remove') == 1) {
+            $this->_goBack();
+            $this->_forward('giftCardRemove');
+            return;
+        }
+*/
         if ($this->_getCart()->getQuote()->getItemsCount()) {
             $giftCardCode = (string) $this->getRequest()->getParam('giftcard_code');
             $helper = Mage::helper('giftcard');
@@ -183,6 +189,7 @@ class MT_Giftcard_Checkout_CartController
     public function giftCardPostAction()
     {
         if ($this->getRequest()->getParam('remove') == 1) {
+            $this->_goBack();
             $this->_forward('giftCardRemove');
             return;
         }
@@ -217,7 +224,7 @@ class MT_Giftcard_Checkout_CartController
             if ($codeLength) {
                 if ($isCodeLengthValid && $helper->isGiftCardCodeAddedToQuote($this->_getQuote()->getMtGiftCard(), $giftCardCode)) {
                     $this->_getSession()->addSuccess(
-                        $this->__('Gift card "%s" was applied.', Mage::helper('core')->escapeHtml($giftCardCode))
+                        $this->__('Gift card "%s" was added.', Mage::helper('core')->escapeHtml($giftCardCode))
                     );
                 } else {
                     $this->_getSession()->addError(
@@ -267,7 +274,6 @@ class MT_Giftcard_Checkout_CartController
             $this->_getSession()->addError($this->__('Cannot delete the gift cards.'));
             Mage::logException($e);
         }
-        $this->_goBack();
     }
 
     protected function _getCart()

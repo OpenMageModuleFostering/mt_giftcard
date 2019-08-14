@@ -12,7 +12,7 @@ abstract class MT_Giftcard_Model_Export_Abstract
 
     abstract protected  function exportItem($item);
 
-    public function setCollection($collection)
+    public function setCollection(Mage_Core_Model_Resource_Db_Collection_Abstract $collection)
     {
         $this->_collection = $collection;
     }
